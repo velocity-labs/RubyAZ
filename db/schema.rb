@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110513203606) do
+ActiveRecord::Schema.define(:version => 20110513204541) do
 
   create_table "blog_categories", :force => true do |t|
     t.string   "title"
@@ -81,6 +81,30 @@ ActiveRecord::Schema.define(:version => 20110513203606) do
   end
 
   add_index "images_portfolio_entries", ["image_id", "portfolio_entry_id"], :name => "composite_key_index"
+
+  create_table "news_item_translations", :force => true do |t|
+    t.integer  "news_item_id"
+    t.string   "locale"
+    t.string   "title"
+    t.text     "body"
+    t.string   "external_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "news_item_translations", ["news_item_id"], :name => "index_news_item_translations_on_news_item_id"
+
+  create_table "news_items", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "publish_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "external_url"
+    t.integer  "image_id"
+  end
+
+  add_index "news_items", ["id"], :name => "index_news_items_on_id"
 
   create_table "page_part_translations", :force => true do |t|
     t.integer   "page_part_id"
