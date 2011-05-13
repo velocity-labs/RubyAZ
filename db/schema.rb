@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110513202813) do
+ActiveRecord::Schema.define(:version => 20110513203606) do
 
   create_table "blog_categories", :force => true do |t|
     t.string   "title"
@@ -74,6 +74,14 @@ ActiveRecord::Schema.define(:version => 20110513202813) do
     t.string    "image_ext"
   end
 
+  create_table "images_portfolio_entries", :id => false, :force => true do |t|
+    t.integer "image_id"
+    t.integer "portfolio_entry_id"
+    t.integer "position"
+  end
+
+  add_index "images_portfolio_entries", ["image_id", "portfolio_entry_id"], :name => "composite_key_index"
+
   create_table "page_part_translations", :force => true do |t|
     t.integer   "page_part_id"
     t.string    "locale"
@@ -130,6 +138,23 @@ ActiveRecord::Schema.define(:version => 20110513202813) do
   add_index "pages", ["lft"], :name => "index_pages_on_lft"
   add_index "pages", ["parent_id"], :name => "index_pages_on_parent_id"
   add_index "pages", ["rgt"], :name => "index_pages_on_rgt"
+
+  create_table "portfolio_entries", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth"
+    t.integer  "title_image_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "portfolio_entries", ["id"], :name => "index_portfolio_entries_on_id"
+  add_index "portfolio_entries", ["lft"], :name => "index_portfolio_entries_on_lft"
+  add_index "portfolio_entries", ["parent_id"], :name => "index_portfolio_entries_on_parent_id"
+  add_index "portfolio_entries", ["rgt"], :name => "index_portfolio_entries_on_rgt"
 
   create_table "refinery_settings", :force => true do |t|
     t.string    "name"
