@@ -11,8 +11,7 @@
 					<div class="thumbnail"> 
 						<% if @image %>
 						<a href="<%= @image.url %>" class="fancybox"> 
-							<img src="<%= @image.url %>" alt="<%= @portfolio_entry.title %>" /> 
-							<!-- span class="overlay"></span --> 
+							<%= image_fu @image, '448x336#c', :class => "portfolio", :alt => @portfolio_entry.title %>
 						</a> 
 						<% end %>
 						<!-- div class="gallery-thumb-bottom"> 

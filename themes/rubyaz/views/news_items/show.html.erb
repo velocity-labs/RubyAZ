@@ -11,6 +11,9 @@
 				    	<small><%= t('.published') %> <%= l(@news_item.publish_date, :format => :long) %></small>
 				    </p>			
 					<%= @news_item.body.html_safe %> 
+					<% unless @news_item.external_url.blank? %>
+					<a class="readmore" href="<%= @news_item.external_url %>"><span>Read Original Article</span></a>
+					<% end %>
 				</div> 	<!-- end .post-->	
 			</div> 	<!-- end .big-box-content-->		
 		</div> 	<!-- end .big-box-top-->

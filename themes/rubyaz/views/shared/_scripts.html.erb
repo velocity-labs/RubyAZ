@@ -101,9 +101,13 @@
 		the_call = jQuery('.event_post:visible').animate( {opacity: 'hide'}, 500, function() {
 		    // show the selected event
 		    jQuery("#" + $href).animate( {opacity: 'show'}, 500 );
+		    Cufon.set('fontFamily', 'Colaborate-Thin');
+		    Cufon.replace('.event_post h4.title'); 
 	    });
 	    if (the_call.length == 0) {
 		    jQuery("#" + $href).animate( {opacity: 'show'}, 500 );
+		    Cufon.set('fontFamily', 'Colaborate-Thin');
+		    Cufon.replace('.event_post h4.title'); 
 	    }
 		return false;
 	});
