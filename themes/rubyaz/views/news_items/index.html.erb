@@ -1,0 +1,34 @@
+<%= render :partial => "/shared/breadcrumbs" %>
+
+<div class="clear"></div> 
+<div id="left-area">	
+	<% if @news_items.any? %>
+		<% @news_items.each do |item| %>
+		<div class="big-box"> 
+			<div class="big-box-top"> 
+				<div class="big-box-content"> 
+					<div class="post clearfix">
+						<!-- blog thumb goes here -->
+						<div class="post-panel nothumb">
+							<h3 class="title"><%= link_to item.title, news_item_url(item) %></h3>
+						    <p class="meta-info">
+						    	<small><%= t('.published') %> <%= l(item.publish_date, :format => :long) %></small>
+						    </p>
+		    				<%= truncate item.body, 
+		                                 :length => RefinerySetting.find_or_set(:news_item_teaser_length, 200),
+		                  		         :preserve_html_tags => true %>
+						</div> <!-- end .post-panel --> 
+						<a class="readmore" href="<%= news_item_url(item) %>"><span>Read More</span></a>
+					</div> 	<!-- end .post-->	
+				</div> 	<!-- end .big-box-content-->		
+			</div> 	<!-- end .big-box-top--> 
+		</div> 	<!-- end .big-box-->
+
+		<% end %>
+
+		<%= will_paginate(@news_items) %>
+	<% else %>
+		<p><em><%= t('.no_items_yet') %></em></p>
+	<% end %>
+	<div class="clear"></div>
+</div> <!-- end #left-area -->

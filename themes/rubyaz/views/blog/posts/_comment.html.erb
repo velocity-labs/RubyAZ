@@ -1,0 +1,32 @@
+<% odd_even = cycle('odd', 'even') %>
+<% thread_alt = cycle('', 'thread-alt ')%>
+<li class="comment <%= odd_even %> thread-<%= odd_even %> <%= thread_alt %>depth-1" id="li-<%= "comment-#{comment.to_param}" %>"> 
+	<div class="comment_box">
+		<div class="comment_box_top">
+			<div class="comment_box_content">
+				<div id="<%= "comment-#{comment.to_param}" %>" class="comment-body clearfix"> 
+					<div class="alignleft authordata">
+						<div class="avatar"> 
+							<img alt='#{comment.name}' src='<%= Gravatar.new(comment.email).image_url(:s => '61', :d => :identicon, :filetype => :png, :r => :g) %>' class='avatar avatar-61 photo' height='61' width='61' />
+							<span class="avatar-overlay"></span> 
+						</div> <!-- end .avatar-->
+					</div>
+		
+					<div class="comment-wrap"> 
+						<div class="comment-wrap-inner clearfix">
+							<span class="fn"><%= t('blog.posts.comments.by', :who => comment.name) %> says:</span>								
+							<div class="comment-meta commentmetadata"><%= t('blog.posts.comments.time_ago', :time => time_ago_in_words(comment.created_at)) %></div>
+							<div class="comment-content">
+								<%= simple_format auto_link(comment.message.to_s) %> 
+							</div> <!-- end comment-content-->
+							<!--div class="reply-container">
+								<a class='comment-reply-link' href='' 
+								   onclick='return addComment.moveForm("comment-<%= comment.to_param %>", "<%= comment.to_param %>", "respond", "<%= @blog_post.id %>")'>reply</a>
+							</div -->
+						</div> <!-- end comment-wrap-inner -->  
+					</div> <!-- end comment-wrap-->
+				</div> <!-- end comment-body-->
+			</div> <!-- end comment_box_content -->	
+		</div> <!-- end comment_box_top -->	
+	</div> <!-- end comment_box -->	
+</li>

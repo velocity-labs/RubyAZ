@@ -1,0 +1,33 @@
+<div id="content-full">
+	<div id="hr">
+		<div id="hr-center">
+			<div id="intro">
+				<div class="center-highlight">
+					<div class="container">
+						<%= t('.blog_archive_for', :date => @archive_date.strftime('%B %Y')) %>
+					</div> <!-- end .container -->	
+				</div> <!-- end .center-highlight -->
+			</div>	<!-- end #intro -->	
+		</div> <!-- end #hr-center -->
+	</div> <!-- end #hr -->
+	
+	<div class="center-highlight"> 
+		<div class="container"> 
+			<div id="content-area" class="clearfix"> 
+				<div id="left-area"> 	
+					<div class="entry clearfix post">
+						<% if @blog_posts.any? %>
+						    <section id="blog_posts">
+						      <%= render :partial => "/blog/shared/post", :collection => @blog_posts %>
+						      <%= will_paginate @blog_posts %>
+						    </section>
+						  <% else %>
+						    <p><%= t('.no_blog_articles_yet') %></p>
+						  <% end %>
+                	</div> <!-- end .entry --> 
+				</div> <!-- end #left-area -->
+
+				<%= render :partial => "/blog/shared/sidebar" %> 
+
+            </div> <!-- end #content-area --> 
+		</div> <!-- end .container -->

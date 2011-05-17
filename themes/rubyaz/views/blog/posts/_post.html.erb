@@ -1,0 +1,23 @@
+<h1 class="title"><%= @blog_post.title %></h1> 
+<!-- post info -->
+<p class="meta-info">
+	<%= " Posted by #{@blog_post.author.username}" if @blog_post.author.present? %> 
+	<time datetime="<%=l @blog_post.published_at.to_date, :format => :default %>" class='posted_at'>
+    	<%= t('blog.shared.posts.created_at', :when => l(@blog_post.published_at.to_date, :format => "%Y-%m-%d")) %>
+    </time>
+    <% unless @blog_post.categories.empty? %> 
+    in 
+    <%= @blog_post.categories.map { |category| link_to("#{category.title}", blog_category_url(category)) }.join(", ").html_safe %>
+    <% end %>
+
+    <% if BlogPost.comments_allowed? %>
+    	| 
+  		<% if @blog_post.comments.any? %>
+     		<%= pluralize(@blog_post.comments.approved.count, t('blog.shared.comments.singular')) %>
+  		<% else %>
+  			<%= t('blog.shared.comments.none') %>
+  		<% end %>
+	<% end %>
+</p>
+<!-- end post info -->
+<%= @blog_post.body.html_safe %>

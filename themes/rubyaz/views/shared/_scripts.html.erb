@@ -1,0 +1,130 @@
+<%= javascript_include_tag "/theme/javascripts/cufon-yui.js" %>
+<%= javascript_include_tag "/theme/javascripts/Chunk_Five_400.font.js" %>
+<%= javascript_include_tag "/theme/javascripts/Colaborate-Thin_400-Colaborate-Bold_400.font.js" %>
+<%= javascript_include_tag "/theme/javascripts/prettyphoto/jquery.prettyPhoto.js" %>
+<%= javascript_include_tag "/theme/javascripts/superfish.js" %>
+<!-- Elegant Themes Includes -->
+<%= javascript_include_tag "/theme/javascripts/et-ptemplates-frontend.js" %>
+
+<script type="text/javascript">		
+	Cufon.set('fontFamily', 'Colaborate-Thin');
+	Cufon.replace('p.meta-info,.commentmetadata, h3#comments,.post h1, .post h2, .post h3, .post h4, .post h5, .post h6')
+	             ('#wp-custom-calendar caption',{textShadow:'1px 1px 0px #fff'})
+	             ('span.featured-info');
+	
+	Cufon.set('fontFamily', 'Colaborate-Bold');
+	Cufon.replace('p.meta-info a, span.featured-info span');
+			
+	Cufon.set('fontFamily', 'Chunk Five');
+
+	Cufon.replace('h1.title')('h2.title')('h2.custom-title')('h3.custom-title')('h3.title')('h4.title')('#about h3.title',{textShadow:'1px 1px 1px #000', hover: { textShadow: '1px 1px 1px #000' }})('h4.widgettitle')('.footer-widget h4.widgettitle',{textShadow:'1px 1px 1px #28282b'})('#wp-custom-calendar thead th',{textShadow:'1px 1px 0px #d5a273'})('.wp-pagenavi a, .wp-pagenavi span.current', {textShadow:'1px 1px 1px rgba(0,0,0,0.5)'})('span.fn, span.featured-title')('.slide h2.slider-title',{textShadow:'1px 1px 1px rgba(0,0,0,0.5)'});
+	
+	Cufon.replace('.info-half, .info-full', {fontFamily: 'Colaborate-Bold'})('.infotitle', {fontFamily: 'Colaborate-Thin'});
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+	jQuery.noConflict();
+					
+	jQuery('ul.nav').superfish({ 
+		delay:       200,                            // one second delay on mouseout 
+		animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
+		speed:       'fast',                          // faster animation speed 
+		autoArrows:  true,                           // disable generation of arrow mark-up 
+		dropShadows: false                            // disable drop shadows 
+	});
+	
+	jQuery('ul.nav > li > a.sf-with-ul').parent('li').addClass('sf-ul');
+	
+	var $featured_content = jQuery('#featured');
+	
+	et_search_bar();
+	
+	if ( $featured_content.length ) {
+		et_service_tabs($featured_content);
+		window.setInterval( function() { Cufon.refresh('span.featured-title'); }, 100 );
+	}
+			
+	<!---- Search Bar Improvements ---->
+	function et_search_bar(){
+		var $searchform = jQuery('#header div#search-form'),
+			$searchinput = $searchform.find("input#searchinput"),
+			searchvalue = $searchinput.val();
+			
+		$searchinput.focus(function(){
+			if (jQuery(this).val() === searchvalue) jQuery(this).val("");
+		}).blur(function(){
+			if (jQuery(this).val() === "") jQuery(this).val(searchvalue);
+		});
+	};
+	
+	<!---- Service Tabs ---->
+	function et_service_tabs($service_tabs){
+		var active_tabstate = 'active',
+		active_tab = 0,
+		$service_div = $service_tabs.find('div.slide').hide(),
+		$service_li = $service_tabs.find('#featured-nav >ul>li');
+	
+		$service_div.filter(':first').show();
+		$service_li.filter(':first').addClass(active_tabstate);
+				
+		$service_li.find('a').click(function(){
+			var $a = jQuery(this),
+				next_tab = $a.parent('li').prevAll().length,
+				next_tab_height = $service_tabs.find('>div').eq(next_tab).outerHeight();
+			
+			if ( next_tab != active_tab ) {
+				$service_tabs.css({height:next_tab_height});
+				$service_div.filter(':visible')
+					.animate( {opacity: 'hide'},500, function(){
+						jQuery(this).parent().find('>div').eq(next_tab).animate( {opacity: 'show'},500 );
+					} );
+				$service_li.removeClass(active_tabstate).filter(':eq('+next_tab+')').addClass(active_tabstate);
+				active_tab = next_tab;
+			}
+			
+			return false;
+		}).hover(function(){
+			if ( !jQuery(this).parent('li').hasClass(active_tabstate) && !is_ie ) jQuery(this).fadeTo('slow',.7);
+		}, function(){
+			if (!is_ie) jQuery(this).fadeTo('slow',1);
+		});
+	}
+	
+	var $et_custom_calendar = jQuery('#et_custom_calendar'),
+		$et_custom_calendar_links = $et_custom_calendar.find('#wp-custom-calendar a');
+	
+	$et_custom_calendar_links.live("click", function(){
+		// the href is holding the id of the div to show
+		$href = jQuery(this).attr('href');
+		// hide the existing element shown if any
+		the_call = jQuery('.event_post:visible').animate( {opacity: 'hide'}, 500, function() {
+		    // show the selected event
+		    jQuery("#" + $href).animate( {opacity: 'show'}, 500 );
+	    });
+	    if (the_call.length == 0) {
+		    jQuery("#" + $href).animate( {opacity: 'show'}, 500 );
+	    }
+		return false;
+	});
+	
+	first_future = jQuery('.event_post.future').first().show();
+	if (first_future.length == 0) {
+		jQuery('.event_post.last').first().show();
+	}
+	
+	var $et_daywithposts = jQuery('td.dwp');
+		
+	$et_daywithposts.live('mouseenter', function(e){
+		jQuery(this).find('span.et_popup').css({'bottom':'42px'}).stop(true, true).animate({bottom:"32px", opacity:'show'},200);
+	});
+	
+	$et_daywithposts.live('mouseleave', function(e){
+		jQuery(this).find('span.et_popup').stop(true, true).animate({bottom:"42px", opacity:'hide'},200);
+	});
+	
+	<!-- ?php if (get_option($shortname.'_disable_toptier') == 'on') echo('jQuery("ul.nav > li > ul").prev("a").attr("href","#");'); ? -->
+		
+	Cufon.now();
+//]]>	
+</script>

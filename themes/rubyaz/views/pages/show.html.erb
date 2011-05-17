@@ -1,4 +1,23 @@
-<%# For the best way to modify this page with your own markup read %>
-<%# http://github.com/resolve/refinerycms-theming/blob/master/readme.md %>
+<%= render :partial => "/shared/breadcrumbs" %>
 
-<%= render :partial => "/shared/content_page" %>
+	
+<div class="clear"></div>
+	<div id="left-area">
+		<div class="big-box">
+			<div class="big-box-top">
+				<div class="big-box-content">
+					<div class="post clearfix single">
+		            <%= render :partial => "/shared/content_page" %>						
+					</div> 	<!-- end .post-->	
+				</div> 	<!-- end .big-box-content-->		
+			</div> 	<!-- end .big-box-top-->
+		</div> 	<!-- end .big-box-->
+	</div> 	<!-- end #left-area -->
+
+	<div id="sidebar">
+		<div id="sidebar-bottom">
+			<div id="sidebar-content">
+
+			</div> <!-- end #sidebar-content -->
+		</div> <!-- end #sidebar-bottom -->
+	</div> <!-- end #sidebar -->

@@ -1,0 +1,9 @@
+span.sf-sub-indicator {padding-left: 2px;}
+div#header { z-index: 2; position: relative; }
+div#featured-slider { z-index: 1; position: relative; }
+.featured-img a img, .join-today { -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)" !important; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF) !important; zoom: 1; }
+
+div#controllers { position: relative !important; padding-left: 470px; }
+div#controllers a { display: block; float: left; }
+
+#center-highlight, #entries-area-content { background: none; }

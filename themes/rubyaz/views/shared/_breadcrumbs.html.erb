@@ -1,0 +1,7 @@
+<div id="breadcrumbs">
+	<div id="breadcrumbs-left"></div>
+	<div id="breadcrumbs-content">
+		<%= [Page.by_title("Home"), @page.ancestors, @page].flatten.collect{ |p| p.id == @page.id ? p.title : link_to(p.title, p.url)}.join(' <span class="raquo">&raquo;</span> ').html_safe %>						
+	</div> <!-- end #breadcrumbs-content -->
+	<div id="breadcrumbs-right"></div>
+</div> <!-- end #breadcrumbs -->

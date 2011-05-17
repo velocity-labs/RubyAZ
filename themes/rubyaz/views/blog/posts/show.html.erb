@@ -1,0 +1,98 @@
+		<%= render :partial => "/shared/breadcrumbs" %>
+
+		<div class="clear"></div> 
+		<div id="left-area"> 
+			<div class="big-box"> 
+				<div class="big-box-top"> 
+					<div class="big-box-content"> 
+						<div class="post clearfix single"> 
+		                	<%= render 'post' %>
+						</div> 	<!-- end .post-->	
+					</div> 	<!-- end .big-box-content-->		
+				</div> 	<!-- end .big-box-top--> 
+			</div> 	<!-- end .big-box-->
+					
+			<span class='st_twitter_hcount' displayText='Tweet'></span>
+			<span class='st_linkedin_hcount' displayText='LinkedIn'></span>
+			<span class='st_facebook_hcount' displayText='Facebook'></span>
+			<span class='st_digg_hcount' displayText='Digg'></span>
+					
+			<% if BlogPost.comments_allowed? %>
+	
+			<div id="comment-wrap">
+				<% if @blog_post.comments.any? %>
+				<h3 id="comments" class="custom-title"><%= pluralize(@blog_post.comments.approved.count, "Comment") %></h3>
+				<ol class="commentlist clearfix">
+					<% if (comments = @blog_post.comments.approved).any? %>
+						<%= render :partial => "comment", :collection => comments %>
+					<% end %>
+				</ol>
+				<% end %>
+		
+				<div class="navigation">
+					<div class="alignleft"></div>
+					<div class="alignright"></div>
+				</div>
+		
+				<h3 id="comments" class="custom-title">Leave a Reply</h3> 
+					
+				<div class="big-box"> 
+					<div class="big-box-top"> 
+						<div class="big-box-content">	
+							<div id="respond"> 
+								<h3 id="comments">Leave a Reply</h3> 
+								<div class="cancel-comment-reply">
+									<small> 
+									<a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Click here to cancel reply.</a>
+									</small>
+								</div> <!-- end cancel-comment-reply div --> 
+						
+								<%= form_for([:blog_post, @blog_comment], :html => {:id => "commentform"}) do |f| %>
+								    <%= render :partial => "/shared/admin/error_messages",
+							                   :locals => {
+							                     :object => f.object,
+							                     :include_object_name => true
+							                   } %>
+									<p> 
+								        <%= f.text_field :name, { :class => 'input', 
+									                              :value => "Name", 
+									                              :size => "22", 
+									                              :tabindex => "1", 
+									                              "aria-required" => 'true', 
+									                              :id => "et_comment_name" } %>
+									</p> 
+									<p> 
+							            <%= f.email_field :email, { :class => 'input', 
+								                                    :value => "Email Address", 
+								                                    :size => "22", 
+								                                    :tabindex => "2", 
+								                                    "aria-required" => 'true', 
+								                                    :id => "et_comment_email" } %>
+									</p> 
+									<p> 
+										<%= f.text_area :message, { :class => 'input', 
+											                        :value => 'Comment', 
+											                        :cols => "80%", 
+											                        :rows => "10", 
+											                        :tabindex => "4", 
+											                        :id => "et_comment_message"} %>
+									</p> 
+									<p>
+										<a class="readmore" href="" onclick="jQuery('#commentform').submit();" tabindex ='5'>
+											<span><%= t('.submit') %></span>
+										</a>
+									</p>
+								<% end %> <!-- end form -->	
+							</div> <!-- end respond div -->					
+				  		</div> <!-- end .big-box-content -->
+					</div> <!-- end .big-box-top -->
+				</div> <!-- end .big-box -->
+			<% end %> <!-- end BlogPost.comments_allowed? -->
+		</div> <!-- end #left-area -->
+</div>
+		<%= render :partial => "/blog/shared/sidebar" %>
+		
+<% if BlogPost::ShareThis.enabled? %>
+	<script src="http://w.sharethis.com/button/buttons.js"></script>
+    <script>stLight.options({publisher:'<%= BlogPost::ShareThis.key %>'});</script>
+<% end %>

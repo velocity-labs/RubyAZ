@@ -1,0 +1,43 @@
+<% if post.live? %>
+<div class="big-box"> 
+	<div class="big-box-top"> 
+		<div class="big-box-content"> 
+			<div class="post clearfix">
+    			<!-- blog thumb goes here -->
+				<div class="post-panel nothumb">
+					<h3 class="title"><%= link_to post.title, blog_post_url(post) %></h3>
+		
+					<!-- post info -->
+					<p class="meta-info">
+						<%= " Posted by #{post.author.username}" if post.author.present? %> 
+						<time datetime="<%=l post.published_at.to_date, :format => :default %>" class='posted_at'>
+			            	<%= t('blog.shared.posts.created_at', :when => l(post.published_at.to_date, :format => "%Y-%m-%d")) %>
+			            </time> 
+			            <% unless post.categories.empty? %> 
+					    in 
+					    <%= post.categories.map { |category| link_to("#{category.title}", blog_category_url(category)) }.join(", ").html_safe %>
+					    <% end %>
+			        	<% if BlogPost.comments_allowed? %>
+			          	    | 
+					  		<% if post.comments.any? %>
+					     		<%= pluralize(post.comments.approved.count, t('blog.shared.comments.singular')) %>
+					  		<% else %>
+					  			<%= t('blog.shared.comments.none') %>
+					  		<% end %>
+						<% end %>
+			        </p>
+					<!-- end post info -->
+		
+					<%= truncate(post.body,
+			                   :length => RefinerySetting.find_or_set(:blog_post_teaser_length, 275),
+			                   :preserve_html_tags => true) %>
+				</div> <!-- end .post-panel --> 
+				<a class="readmore" href="<%= blog_post_url(post) %>"><span>Read More</span></a>
+			</div> 	<!-- end .post-->	
+		</div> 	<!-- end .big-box-content-->		
+	</div> 	<!-- end .big-box-top--> 
+</div> 	<!-- end .big-box-->
+<% end %>
+
+
+

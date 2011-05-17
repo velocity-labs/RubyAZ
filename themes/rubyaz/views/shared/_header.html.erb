@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+<!-- meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" / -->
+<meta charset='<%= ::Refinery::Application.config.encoding %>' />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title><%= browser_title(yield(:title)) %></title>
+<%= raw "<meta name=\"description\" content=\"#{@meta.meta_description}\" />" if @meta.meta_description.present? -%>
+<%= raw "<meta name=\"keywords\" content=\"#{@meta.meta_keywords}\">" if @meta.meta_keywords.present? -%>
+<%= csrf_meta_tag if RefinerySetting.find_or_set(:authenticity_token_on_frontend, true)-%>
+
+<%= stylesheet_link_tag "/stylesheets/refinery/site_bar" %>
+<!-- link rel="alternate" type="application/rss+xml" title="RSS Feed" href="http://www.elegantthemes.com/preview/Event/?feed=rss2" / -->
+<!-- link rel="alternate" type="application/atom+xml" title="Atom Feed" href="http://www.elegantthemes.com/preview/Event/?feed=atom" / -->
+<!-- link rel="pingback" href="xmlrpc" />
+
+<!--[if lt IE 7]>
+	<%= stylesheet_link_tag "/theme/stylesheets/ie6style" %>
+	<%= javascript_include_tag "/theme/javascripts/DD_belatedPNG_0.0.8a-min" %>
+	<script type="text/javascript">DD_belatedPNG.fix('.overlay, #footer, #header, .featured-overlay, .info-overlay, img#logo');</script>
+<![endif]-->
+<!--[if IE 7]>
+	<%= stylesheet_link_tag "/theme/stylesheets/ie7style" %>
+<![endif]-->
+<!--[if IE 8]>
+	<%= stylesheet_link_tag "/theme/stylesheets/ie8style" %>
+<![endif]-->
+
+<script type="text/javascript">
+	document.documentElement.className = 'js';
+</script>
+
+<%= stylesheet_link_tag "/theme/javascripts/prettyphoto/prettyPhoto" %>
+<%= stylesheet_link_tag "/theme/stylesheets/page_templates" %>
+<%= stylesheet_link_tag "/theme/stylesheets/shortcodes" %>
+<%= javascript_include_tag "/theme/javascripts/I10n.js" %>
+<%= javascript_include_tag "/theme/javascripts/jquery-1.4.4.min.js" %>
+<%= javascript_include_tag "/theme/javascripts/jquery-ui-1.8.8.min.js" %>
+<%= stylesheet_link_tag "/theme/stylesheets/syntaxhighlighter/shCore" %>
+<%= stylesheet_link_tag %[/theme/stylesheets/syntaxhighlighter/#{RefinerySetting.find_or_set(:highlighter_theme, "shThemeDefault")}] %>
+<%= stylesheet_link_tag "/theme/stylesheets/jquery.jscrollpane.css" %>
+<%= stylesheet_link_tag "/theme/stylesheets/style" %>
+<%= render :partial => '/shared/google_analytics' unless local_request? %>
+<style type="text/css">
+	#et_pt_portfolio_gallery { margin-left: -11px; }
+	.et_pt_portfolio_item { margin-left: 26px; }
+	.et_portfolio_small { margin-left: -40px !important; }
+	.et_portfolio_small .et_pt_portfolio_item { margin-left: 38px !important; }
+	.et_portfolio_large { margin-left: -8px !important; }
+	.et_portfolio_large .et_pt_portfolio_item { margin-left: 11px !important; }
+	div.pp_default .pp_content_container .pp_details { color: #666; }
+	.et_pt_portfolio_item h2 { color: #fff; }
+</style>
+</head>
+<body <%= 'id="home"'.html_safe if home_page? %>>
+<% site_bar = render(:partial => "/shared/site_bar", :locals => {:head => true}) -%>
+<%= site_bar -%>
+<%= render :partial => "/shared/ie6check" if request.env['HTTP_USER_AGENT'] =~ /MSIE/ -%>
+	<div id="main-bg">
+		<div id="center-highlight">
+			<div id="header">
+				<div class="container clearfix">
+					<a href="<%= root_path %>">
+						<img src="/theme/images/logo.png" alt="Ruby::AZ" id="logo"/>
+					</a>
+
+					<ul id="top-menu" class="nav">
+						<%= render :partial => "/shared/menu" %>
+                    </ul> <!-- end ul#nav -->
+						
+					<div id="search-form">
+						<%= render :partial => "/shared/search" %>
+					</div> <!-- end #search-form -->
+				</div> <!-- end .container -->
+			</div> <!-- end #header -->
+
+			<div id="main-area">
+				<div class="container clearfix">
+					<% flash.each do |key, msg| %>
+					    <%= content_tag :div, msg, :class => "#{key}_message", :id => "notice_#{key}" %>
+					<% end %>

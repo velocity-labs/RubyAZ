@@ -1,0 +1,5 @@
+<ul id="menu-pages" class="bottom-nav">
+<% @menu_pages.each do |page| %>
+<li class="menu-item"><%= link_to page.title, page.url -%></li> 
+<% end %>
+</ul>

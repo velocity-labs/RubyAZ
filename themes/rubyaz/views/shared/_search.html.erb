@@ -1,0 +1,7 @@
+<% form_tag(search_url, {:id => "searchform"}) do -%>
+  <%= text_field_tag :query, {}, {:type => "text", 
+	                 :placeholder => "Search site for...", 
+	                 :value => (params[:query] if params[:query]),
+	                 :id => "searchinput"} %>
+  <%= image_submit_tag("/theme/images/search_btn.png", :id => 'searchsubmit') %>
+<% end %>

@@ -1,0 +1,16 @@
+<%= render :partial => "/shared/breadcrumbs" %>
+
+<div class="clear"></div> 
+<div id="left-area"> 	
+	<h1 class="title">Posts Tagged As <%= @category.title %></h1>
+	<% if @category.posts.any? %>
+	    <%= render :partial => "/blog/shared/post", :collection => @category.posts %>
+	    <!-- %= will_paginate @category.posts % -->
+	<% else %>
+		<p><%= t('.no_posts') %></p>
+	<% end %>
+</div> <!-- end #left-area -->
+
+<%= render :partial => "/blog/shared/sidebar" %> 
+
+

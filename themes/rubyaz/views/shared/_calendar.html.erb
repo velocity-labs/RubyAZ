@@ -1,0 +1,102 @@
+<%
+today = Date.today
+now = Time.now
+beginning_of_month = Date.new(today.year, today.month, 1) 
+end_of_month = beginning_of_month.end_of_month
+events = BlogCategory.where(:title => "Events").first.posts.live.where(:published_at => (beginning_of_month..end_of_month)).group_by { |post| post.published_at.strftime("%d") }
+dotw_short = Date::ABBR_DAYNAMES.rotate
+dotw_long =  Date::DAYNAMES.rotate
+weeks = []
+week = Array.new(7, nil)
+dow = nil
+(beginning_of_month..end_of_month).each do |day|
+  dow = dotw_short.index(day.strftime("%a")) + 1
+  week[dow - 1] = day
+  if (dow == 7) 
+	weeks << week
+	week = Array.new(7, nil)
+  end	
+end
+weeks << week if (dow != 7) 
+%>
+
+<!-- <%= events.to_s.html_safe %> -->
+<div id="et_custom_calendar"> 
+	<div id="custom_calendar" class="clearfix"> 
+		<table id="wp-custom-calendar" summary="Calendar"> 
+			<caption><%= now.strftime("%B %Y") %></caption> 
+			<thead> 
+				<tr>				
+				<% dotw_short.each_index do |index| %>
+					<th id="wd_<%= index + 1 %>" scope="col" title="<%= dotw_long[index] %>"><%= dotw_short[index] %></th> 
+				<% end %>	
+				</tr> 
+			</thead> 
+ 
+			<tfoot> 
+				<tr> 
+					<!--
+					<td colspan="3" id="prev"><a href="." title="View posts for September 2010">&laquo; Sep</a></td> 
+					<td class="pad">&nbsp;</td> 
+					<td colspan="3" id="next" class="pad">&nbsp;</td> 
+					-->
+				</tr> 
+			</tfoot> 
+ 
+			<tbody> 
+				<% weeks.each do |week| %>
+				<!-- <%= week.join(', ') %> -->
+				<tr class='et_pad'>
+				  <% week.each do |day| %>
+				    <% if day.nil? %>
+				    <td colspan="1" class="pad">&nbsp;</td>
+				    <% elsif events[day.day.to_s] %>
+					<td class="dwp" <%= 'id="today"'.html_safe if day == today %>>
+						<span class="posts_today">
+							<%= day.day %>
+							<span class="et_popup">
+								<span class="tooltip_arrow"></span>
+								<% events[day.day.to_s].each do |event| %>
+								<span class="feat_title">
+									<a href="<%= 'event_' + dom_id(event) %>" title="<%= event.title %>">
+								    <%= truncate(event.title,
+								                 :length => RefinerySetting.find_or_set(:event_title_length, 23), 
+												 :preserve_html_tags => true) %>
+						        	</a>
+						        </span>
+								<span class="feat_cat">
+								    <%= event.categories.map { |category| link_to("#{category.title}", blog_category_url(category)) }.join(", ").html_safe %>
+						        </span>
+								<% end %>
+							</span>
+						</span>
+					</td>				
+				    <% else %>
+				    <td <%= 'id="today"'.html_safe if day == today %>><%= day.day %></td>
+				    <!-- day = <%= day %> <%= day.class %>, today = <%= today %> <%= today.class %> -->
+				    <% end %>
+				  <% end %>
+				</tr>
+				<% end %> 
+			</tbody> 
+		</table> 
+	</div> <!-- end custom-calendar -->
+	
+	<% events.values.each do |events_for_day| %>
+	    <% events_for_day.each do |event| %>
+		<div id="<%= 'event_' + dom_id(event) %>" class="event_post <%= 'future' if event.published_at >= today %> <%= 'last' if (event == events_for_day.first && events_for_day == events.values.last) %>" style="display: none;"> 
+			<h2 class="title">
+			<%= truncate(event.title,
+		                 :length => RefinerySetting.find_or_set(:event_title_length, 23), 
+						 :preserve_html_tags => true) %>
+			</h2> 
+			<p class="excerpt">			
+			<%= truncate(event.body,
+				         :length => RefinerySetting.find_or_set(:event_body_length, 250),
+				         :preserve_html_tags => true) %></p> 
+			<a href="<%= blog_post_url(event) %>" class="readmore"><span>More Info</span></a> 
+		</div> <!-- .event_post -->
+		<% end %>			
+	<% end %>
+	
+</div> <!-- #et_custom_calendar -->

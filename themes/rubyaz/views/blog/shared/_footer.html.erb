@@ -1,0 +1,49 @@
+<div id="recent_posts" class="footer-widget">		
+	<h4 class="widgettitle">Recent Posts</h4>	
+	<ul> 
+		<% @recent_blog_posts = BlogPost.live.limit(5).order("created_at ASC") %>
+		<% @recent_blog_posts.each do |post| %>
+			<li class="clearfix">
+				<a href="<%= blog_post_url(post) %>" class="title"><span><%= post.title %></span></a>
+			</li>
+		<% end %>
+	</ul> 
+</div><!-- end .widget -->
+
+<% blog_categories = BlogCategory.where("title <> 'Events'") %>
+<% if blog_categories && blog_categories.any? %>
+<div id="categories" class="footer-widget">
+	<h4 class="widgettitle">Categories</h4>
+  	<ul>
+    <% blog_categories.each do |category| %>
+      <li<%= " class='selected'" if @category.present? and @category.id == category.id %>>
+        <%= link_to "#{category.title} (#{category.post_count})", blog_category_url(category) %>
+      </li>
+    <% end %>
+  	</ul>
+</div><!-- end .widget -->
+<% end %>
+
+<div id="recent_comments" class="footer-widget">		
+	<h4 class="widgettitle">Recent Comments</h4>		
+	<ul> 
+		<% @recent_blog_comments = BlogComment.approved.limit(5).order("created_at DESC") %>
+		<% @recent_blog_comments.each do |comment| %>
+			<li class="clearfix">
+				<a href="<%= blog_post_url(comment.post) %>" class="title"><span>
+				<%= truncate(simple_format(comment.message.to_s),
+		                     :length => RefinerySetting.find_or_set(:blog_post_comment_teaser_length, 25),
+		                     :preserve_html_tags => true) %></span></a>
+			</li>
+		<% end %>
+	</ul>
+</div><!-- end .widget -->
+
+<div id="rss_feed" class="footer-widget">		
+	<h4 class="widgettitle">RSS Feed</h4>	
+	<ul> 
+		<li class="clearfix">	
+			<%= link_to 'Subscribe', blog_rss_feed_url, :id => "rss_feed_subscribe"%>
+		</li>
+	</ul>
+</div><!-- end .widget -->

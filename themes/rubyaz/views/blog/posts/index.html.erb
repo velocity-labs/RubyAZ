@@ -1,0 +1,15 @@
+<%= render :partial => "/shared/breadcrumbs" %>
+
+<div class="clear"></div> 
+<div id="left-area"> 		
+	<% if @blog_posts.any? %>
+		<%= render :partial => "/blog/shared/post", :collection => @blog_posts %>
+	    <%= will_paginate @blog_posts %>
+	<% else %>
+		<p><%= t('.no_blog_articles_yet') %></p>
+	<% end %>
+	<div class="clear"></div>
+</div> <!-- end #left-area -->
+
+<%= render :partial => "/blog/shared/sidebar" %> 
+

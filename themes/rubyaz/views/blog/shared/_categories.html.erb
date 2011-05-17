@@ -1,0 +1,16 @@
+<% if @blog_categories && @blog_categories.any? %>
+<div id="categories" class="widget">
+	<div class="widget-top">		
+		<div class="widget-content">		
+			<h4 class="widgettitle">Categories</h4>
+		  	<ul id='categories'>
+		    <% @blog_categories.each do |category| %>
+		      <li<%= " class='selected'" if @category.present? and @category.id == category.id %>>
+		        <%= link_to "#{category.title} (#{category.post_count})", blog_category_url(category) %>
+		      </li>
+		    <% end %>
+		  	</ul>
+		</div> <!-- end .widget-content-->
+	</div> <!-- end .widget-top-->
+</div> <!-- end .widget -->
+<% end %>

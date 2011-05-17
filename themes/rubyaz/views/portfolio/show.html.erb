@@ -1,0 +1,50 @@
+<%= render :partial => "/shared/breadcrumbs" %>
+
+<div class="clear"></div>
+<div id="left-area">
+	<div class="big-box">
+		<div class="big-box-top">
+			<div class="big-box-content">
+				<div class="post clearfix single">
+					<h1 class="title"><%= @portfolio_entry.title %></h1>
+					<div class="clear"></div>  
+					<div class="thumbnail"> 
+						<% if @image %>
+						<a href="<%= @image.url %>" class="fancybox"> 
+							<img src="<%= @image.url %>" alt="<%= @portfolio_entry.title %>" /> 
+							<!-- span class="overlay"></span --> 
+						</a> 
+						<% end %>
+						<!-- div class="gallery-thumb-bottom"> 
+							<div class="left-shadow"></div> 
+							<div class="bg"></div> 
+							<div class="right-shadow"></div> 
+						</div --> <!-- end .gallery-thumb-botton --> 
+					</div> <!-- end .gallery-thumb --> 
+					<div class="clear"></div> 
+					<%= raw(@portfolio_entry.body) %>
+				</div> 	<!-- end .post-->	
+			</div> 	<!-- end .big-box-content-->		
+		</div> 	<!-- end .big-box-top--> 
+	</div> 	<!-- end .big-box-->
+</div> 	<!-- end #left-area -->
+
+<div id="sidebar"> 
+	<div id="sidebar-bottom"> 
+		<div id="sidebar-content">
+			<div id="portfolio_links" class="widget">
+				<div class="widget-top">		
+					<div class="widget-content">		
+						<h4 class="widgettitle">Our Sponsors</h4>		
+						<ul> 
+							<% @portfolio_entries.each do | portfolio | -%>
+							<li><%= link_to portfolio.title, portfolio_path(portfolio) %></li>
+							<% end -%> 
+						</ul> 
+					</div> <!-- end .widget-content--> 
+				</div> <!-- end .widget-top-->	
+			</div><!-- end .widget -->
+		</div> <!-- end #sidebar-content --> 
+	</div> <!-- end #sidebar-bottom --> 
+</div> <!-- end #sidebar -->
+

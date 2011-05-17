@@ -1,0 +1,21 @@
+<% @portfolio_entries.each_with_index do | portfolio_entry, entry_count | -%>
+    <% portfolio_entry.images.each_with_index do |image, image_count| %>
+    <% index = entry_count + image_count + 1 %>
+	<div class="et_pt_gallery_entry"> <!-- item %= ' last' if (index % 4 == 0)  % -->
+		<div class="et_pt_item_image">
+			<%= image_fu image, '207x136#c', :class => "portfolio" %>	        
+			<span class="overlay"></span> 
+		
+			<a class="zoom-icon" title="<%= portfolio_entry.title %>" rel="prettyPhoto[gallery]" href="<%= image.url %>">Zoom in</a>
+			<a class="more-icon" href="<%= portfolio_path(portfolio_entry) %>">Read more</a>
+		</div> <!-- end .et_pt_item_image -->
+	</div> <!-- end .et_pt_gallery_entry -->
+	<% end -%>
+<% end -%>
+
+<div class="page-nav clearfix">
+	<div class="pagination">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>																	
+</div> <!-- end .entry -->

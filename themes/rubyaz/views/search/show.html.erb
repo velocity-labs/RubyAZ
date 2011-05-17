@@ -1,0 +1,34 @@
+<div id="breadcrumbs">
+	<div id="breadcrumbs-left"></div>
+		<div id="breadcrumbs-content">
+			<% h = Page.by_title("Home").first %>
+		    <%= link_to(h.title, h.url) %> <span class="raquo">&raquo;</span> Search results for '<%=h params[:query] %>'
+		</div> <!-- end #breadcrumbs-content -->
+	<div id="breadcrumbs-right"></div>
+</div> <!-- end #breadcrumbs -->
+	
+<div class="clear"></div>
+<div id="left-area">
+    <% @results.each do |result| %>
+	<div class="big-box">
+		<div class="big-box-top">
+			<div class="big-box-content">
+				<div class="post clearfix single full">
+					<h1 id='body_content_title' style="padding-bottom: 10px; border-bottom: 1px solid #e7e7e7; margin: 0px 0 20px 0;"><%= raw(result.title.gsub(/(#{params[:query]})/i,'<mark>\1</mark>')) %></h1> 
+					<% 
+						if result.class == BlogPost 
+						  body = result.body
+					    else result.class == Page
+						  body = result[Page.default_parts.first.to_sym]
+					    end	
+					%>
+					<%= truncate(body,
+					             :length => RefinerySetting.find_or_set(:blog_post_teaser_length, 275),
+					              :preserve_html_tags => true) %>
+					<%= link_to ('<span>Read More</span>').html_safe, result_url(result), :class => 'readmore' %>	
+				</div> 	<!-- end .post-->	
+			</div> 	<!-- end .big-box-content-->		
+		</div> 	<!-- end .big-box-top-->
+	</div> 	<!-- end .big-box-->	
+	<% end %>		
+</div> 	<!-- end #left-area -->

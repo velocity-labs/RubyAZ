@@ -1,0 +1,14 @@
+<div id="recent_posts" class="widget">	
+	<div class="widget-top">		
+		<div class="widget-content">	
+			<h4 class="widgettitle">Recent News</h4>	
+			<ul>
+			    <% @news_items.each do |item| %>
+			      <li>
+			        <%= link_to item.title, news_item_url(item) %>
+			      </li>
+			    <% end %>
+			</ul>
+		</div> <!-- end .widget-content-->
+	</div> <!-- end .widget-top-->
+</div> <!-- end .widget -->

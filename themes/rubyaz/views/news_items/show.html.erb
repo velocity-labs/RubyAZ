@@ -1,0 +1,26 @@
+<%= render :partial => "/shared/breadcrumbs" %>
+
+<div class="clear"></div>
+<div id="left-area">
+	<div class="big-box">
+		<div class="big-box-top">
+			<div class="big-box-content">
+				<div class="post clearfix single">																
+					<h1 class="title"><%= @news_item.title %></h1>	
+					<p class="meta-info">
+				    	<small><%= t('.published') %> <%= l(@news_item.publish_date, :format => :long) %></small>
+				    </p>			
+					<%= @news_item.body.html_safe %> 
+				</div> 	<!-- end .post-->	
+			</div> 	<!-- end .big-box-content-->		
+		</div> 	<!-- end .big-box-top-->
+	</div> 	<!-- end .big-box-->		
+</div> 	<!-- end #left-area -->
+
+<div id="sidebar"> 
+	<div id="sidebar-bottom"> 
+		<div id="sidebar-content">
+			<%= render :partial => 'recent_posts' %>
+		</div> <!-- end #sidebar-content --> 
+	</div> <!-- end #sidebar-bottom --> 
+</div> <!-- end #sidebar -->

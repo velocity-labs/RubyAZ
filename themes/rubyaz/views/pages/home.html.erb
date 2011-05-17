@@ -1,4 +1,58 @@
-<%# For the best way to modify this page with your own markup read %>
-<%# http://github.com/resolve/refinerycms-theming/blob/master/readme.md %>
+<h2 class="custom-title">This Month</h2>
+<%= render :partial => "/shared/calendar" %>
 
-<%= render :partial => "/shared/content_page" %>
+<h2 class="custom-title">Ruby News</h2>
+<%= render :partial => "/shared/featured" %>
+
+<div class="blog-half">
+	<h2 class="custom-title">Our Blog</h2>
+	<div class="small-box">
+		<div class="small-box-top">
+			<div class="small-box-content">
+				
+				<% @blog_posts = BlogPost.live.reject { |p| p.categories.map {|c| c.title }.include?("Events") } %>
+				<% @blog_posts.each do |post| %>
+				<div class="entry clearfix"> <!--  ' last' on last one -->
+	
+	                <!-- Category Thumbnail Maybe -->
+					<!-- div class="thumbnail" -->
+						<!-- a href="" -->
+							<!-- % category_thumbnail =  % -->
+							<!-- %= image_tag(category_thumbnail.thumbnail("61x61").url) if category_thumbnail % -->
+							<!-- span class="overlay"></span -->
+						<!-- /a -->	
+					<!-- /div -->  <!-- end .thumbnail -->
+					
+					<div class="small_datapanel">
+						<h4 class="title"><a href="<%= blog_post_url(post) %>"><%= post.title %></a></h4>
+						<p class="meta-info">Posted by <%= post.author.username %> on <%= l(post.published_at.to_date, :format => "%Y-%m-%d") %></p>
+						<p><%= truncate(post.body,
+				                   :length => RefinerySetting.find_or_set(:blog_post_teaser_length, 60),
+				                   :preserve_html_tags => true) %></p>
+					</div> 	<!-- end .small_datapanel-->
+				</div> 	<!-- end .entry-->				
+				<% end %>				
+
+			</div> 	<!-- end .small-box-content-->		
+		</div> 	<!-- end .small-box-top-->
+	</div> 	<!-- end .small-box-->		
+</div> 	<!-- end .blog-half-->	
+
+<% about_page = Page.by_title(RefinerySetting.find_or_set(:about_page_title, "About")).first %>
+<div class="blog-half" id="about">
+	<h2 class="custom-title">About Us</h2>
+	<div class="small-box">
+		<div class="small-box-top">
+			<div class="small-box-content">
+				<div class="entry">
+					<h4 class="title"><%= link_to about_page.title, about_page.url -%></h4>
+					
+					<%= truncate(about_page[Page.default_parts.first.to_sym],
+			                   :length => RefinerySetting.find_or_set(:about_page_preview_length, 1200),
+			                   :preserve_html_tags => true) %>
+					<a href="<%= page_path(about_page) %>" class="readmore"><span>more info</span></a>
+				</div> 	<!-- end .entry-->		
+			</div> 	<!-- end .small-box-content-->		
+		</div> 	<!-- end .small-box-top-->
+	</div> 	<!-- end .small-box-->		
+</div> 	<!-- end .blog-half-->

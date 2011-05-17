@@ -1,0 +1,47 @@
+<div id="sidebar"> 
+	<div id="sidebar-bottom"> 
+		<div id="sidebar-content">
+			
+			<div id="recent_posts" class="widget">	
+				<div class="widget-top">		
+					<div class="widget-content">	
+						<h4 class="widgettitle">Recent Posts</h4>	
+						<ul> 
+							<% @recent_blog_posts = BlogPost.live.limit(5).order("created_at ASC") %>
+							<% @recent_blog_posts.each do |post| %>
+								<li class="clearfix">
+									<a href="<%= blog_post_url(post) %>" class="title"><span><%= post.title %></span></a>
+								</li>
+							<% end %>
+						</ul> 
+					</div> <!-- end .widget-content-->
+				</div> <!-- end .widget-top-->
+			</div> <!-- end .widget -->
+	
+	
+			<%= render :partial => "/blog/shared/categories" %>
+	
+			<div id="recent_comments" class="widget">	
+				<div class="widget-top">		
+					<div class="widget-content">	
+						<h4 class="widgettitle">Recent Comments</h4>		
+						<ul> 
+							<% @recent_blog_comments = BlogComment.approved.limit(5).order("created_at DESC") %>
+							<% @recent_blog_comments.each do |comment| %>
+								<li class="clearfix">
+									<a href="<%= blog_post_url(comment.post) %>" class="title"><span>
+									<%= truncate(simple_format(comment.message.to_s),
+							                     :length => RefinerySetting.find_or_set(:blog_post_comment_teaser_length, 25),
+							                     :preserve_html_tags => true) %></span></a>
+								</li>
+							<% end %>
+						</ul>
+					</div> <!-- end .widget-content-->
+				</div> <!-- end .widget-top-->
+			</div> <!-- end .widget -->
+	
+			<%= render :partial => "/blog/shared/rss_feed" %>
+			
+		</div> <!-- end #sidebar-content --> 
+	</div> <!-- end #sidebar-bottom --> 
+</div> <!-- end #sidebar -->

@@ -1,0 +1,68 @@
+<div class="clear"></div>
+	<div id="left-area">
+		<div class="big-box">
+			<div class="big-box-top">
+				<div class="big-box-content">
+					<div class="post clearfix single">
+						<h1 class="title"><%= @page.title %></h1>
+						<p><%=raw @page[:body] %></p>
+						<div class="clear"></div>						
+						<div id="et-contact">
+							<div id="et-contact-message"> </div>
+							    <%= form_for(@inquiry, :remote => true, :html => {:id => "et_contact_form"}) do |f| %>
+							  		<%= render :partial => "/shared/admin/error_messages",
+						                 	   :locals => { :object => @inquiry, :include_object_name => true } %>
+									<div id="et_contact_left">
+										<p class="clearfix">
+											<%= f.text_field :name, {:class => 'input', :value => "Name", :id => "et_contact_name"} %>
+										</p>
+										<p class="clearfix">
+											<%= f.text_field :email, {:class => 'input', :value => "Email Address", :id => "et_contact_email"} %>
+										</p>
+										<p class="clearfix">
+											<%= f.text_field :phone, {:class => 'input', :value => "Phone Number", :id => "et_contact_phone"} %>
+										</p>
+									</div> <!-- #et_contact_left -->
+
+									<!-- div id="et_contact_right">
+										<p class="clearfix">
+											Captcha: <br/>10 + 7 = <input type="text" name="et_contact_captcha" value="" id="et_contact_captcha" class="input" size="2" />
+										</p>
+									</div --> <!-- #et_contact_right -->
+
+									<div class="clear"></div>
+
+									<p class="clearfix">
+										<%= f.text_area :message, {:value => 'Message', :class => 'input', :id => "et_contact_message"} %>
+									</p>
+
+									<input type="reset" id="et_contact_reset" value="Reset" />
+									<%= f.submit 'Submit', {:id => 'et_contact_submit'}  %>
+								<% end %>
+						</div> <!-- end #et-contact -->	
+						
+						<div class="clear"></div>
+						
+					</div> 	<!-- end .post-->	
+				</div> 	<!-- end .big-box-content-->		
+			</div> 	<!-- end .big-box-top-->
+		</div> 	<!-- end .big-box-->
+	</div> 	<!-- end #left-area -->
+
+	<div id="sidebar">
+		<div id="sidebar-bottom">
+			<div id="sidebar-content">
+				<div style="margin: 10px;">
+					<div class='et-box et-shadow'>
+						<div class='et-box-content'>
+							<%= @page[:side_body].html_safe %>
+						</div>
+					</div>
+				</div>	
+			</div> <!-- end #sidebar-content -->
+		</div> <!-- end #sidebar-bottom -->
+	</div> <!-- end #sidebar -->
+
+
+
+
