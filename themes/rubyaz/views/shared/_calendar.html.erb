@@ -3,7 +3,7 @@ today = Date.today
 now = Time.now
 beginning_of_month = Date.new(today.year, today.month, 1) 
 end_of_month = beginning_of_month.end_of_month
-events = BlogCategory.where(:title => "Events").first.posts.live.where(:published_at => (beginning_of_month..end_of_month)).group_by { |post| post.published_at.strftime("%d") }
+events = BlogCategory.where(:title => "Events").first.posts.where(:published_at => (beginning_of_month..end_of_month)).group_by { |post| post.published_at.strftime("%d") }
 dotw_short = Date::ABBR_DAYNAMES.rotate
 dotw_long =  Date::DAYNAMES.rotate
 weeks = []
