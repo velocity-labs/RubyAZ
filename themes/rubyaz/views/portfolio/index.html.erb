@@ -7,7 +7,7 @@
 		<div class="big-box-top">
 			<div class="big-box-content">
 				<div class="post clearfix single">																						
-                    <%= render :partial => "/shared/content_page" %>											
+                    <%= @page[:body].html_safe %>											
 					<div id="et_pt_gallery" class="clearfix">
 						<%= render :partial => "/shared/gallery" %>
 					</div> <!-- end #et_pt_gallery -->
