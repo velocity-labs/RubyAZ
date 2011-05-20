@@ -21,7 +21,9 @@
 	    <% image = item.image %>
 		<div class="slide" style="background: url(<%= image_tag(image.thumbnail("705x382").url) if image %>) no-repeat;">
 			<div class="info-overlay">
-				<h2 class="slider-title"><%= link_to item.title, news_item_url(item) -%></h2>
+				<h2 class="slider-title"><%= link_to truncate(item.title,
+		                                                  :length => RefinerySetting.find_or_set(:news_item_short_title_length, 15),
+		                                                  :preserve_html_tags => true), news_item_url(item) -%></h2>
 				<p><%= truncate(item.body,
 		                        :length => RefinerySetting.find_or_set(:featured_page_teaser_length, 850),
 		                        :preserve_html_tags => true) %></p>
