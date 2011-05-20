@@ -70,7 +70,8 @@ weeks = Integrallis::Weeks.weeks_for_month
 		</table> 
 	</div> <!-- end custom-calendar -->
 	
-	<% events.values.each do |events_for_day| %>
+	<% events.keys.sort.each do |day| %>
+	    <% events_for_day = events[day] %>
 	    <% events_for_day.each do |event| %>
 		<div id="<%= 'event_' + dom_id(event) %>" class="event_post <%= 'future' if event.published_at >= today %> <%= 'last' if (event == events_for_day.first && events_for_day == events.values.last) %>" style="display: none;"> 
 			<h2 class="title">
