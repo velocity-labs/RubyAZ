@@ -1,26 +1,15 @@
 <%
 today = Date.today
 now = Time.now
-beginning_of_month = Date.new(today.year, today.month, 1) 
-end_of_month = beginning_of_month.end_of_month
-events = BlogCategory.where(:title => "Events").first.posts.where(:published_at => (beginning_of_month..end_of_month)).group_by { |post| post.published_at.strftime("%d") }
+# rotate to make Monday the first day of the week :-)
 dotw_short = Date::ABBR_DAYNAMES.rotate
 dotw_long =  Date::DAYNAMES.rotate
-weeks = []
-week = Array.new(7, nil)
-dow = nil
-(beginning_of_month..end_of_month).each do |day|
-  dow = dotw_short.index(day.strftime("%a")) + 1
-  week[dow - 1] = day
-  if (dow == 7) 
-	weeks << week
-	week = Array.new(7, nil)
-  end	
-end
-weeks << week if (dow != 7) 
+# events for current month
+events = BlogPost.events_by_month
+# Array of Arrays for each week of the current month
+weeks = Integrallis::Weeks.weeks_for_month
 %>
 
-<!-- <%= events.to_s.html_safe %> -->
 <div id="et_custom_calendar"> 
 	<div id="custom_calendar" class="clearfix"> 
 		<table id="wp-custom-calendar" summary="Calendar"> 
@@ -73,7 +62,6 @@ weeks << week if (dow != 7)
 					</td>				
 				    <% else %>
 				    <td <%= 'id="today"'.html_safe if day == today %>><%= day.day %></td>
-				    <!-- day = <%= day %> <%= day.class %>, today = <%= today %> <%= today.class %> -->
 				    <% end %>
 				  <% end %>
 				</tr>
