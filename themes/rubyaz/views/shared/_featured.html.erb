@@ -1,5 +1,5 @@
 <div id="featured" class="clearfix">
-	<% news_items = NewsItem.published.translated %>
+	<% news_items = NewsItem.published.translated.limit(4) %>
 	
 	<div id="featured-nav">
 		<ul>
