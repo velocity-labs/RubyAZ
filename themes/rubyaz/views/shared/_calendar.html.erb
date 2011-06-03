@@ -54,7 +54,7 @@ weeks = Integrallis::Weeks.weeks_for_month
 						        	</a>
 						        </span>
 								<span class="feat_cat">
-								    <%= event.categories.map { |category| link_to("#{category.title}", blog_category_url(category)) }.join(", ").html_safe %>
+								    <%= event.categories.map { |category| "#{category.title}" }.join(", ").html_safe %>
 						        </span>
 								<% end %>
 							</span>

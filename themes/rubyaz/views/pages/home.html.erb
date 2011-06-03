@@ -10,7 +10,7 @@
 		<div class="small-box-top">
 			<div class="small-box-content">
 				
-				<% @blog_posts = BlogPost.live.reject { |p| p.categories.map {|c| c.title }.include?("Events") } %>
+				<% @blog_posts = BlogPost.live.reject { |p| p.categories.map {|c| c.title }.include?("Events") }.first(RefinerySetting.find_or_set(:blog_posts_displayed, 3)) %>
 				<% @blog_posts.each do |post| %>
 				<div class="entry clearfix"> <!--  ' last' on last one -->
 	
