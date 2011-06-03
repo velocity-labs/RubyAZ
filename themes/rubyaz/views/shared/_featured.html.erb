@@ -1,5 +1,5 @@
 <div id="featured" class="clearfix">
-	<% news_items = NewsItem.published.translated.limit(4) %>
+	<% news_items = NewsItem.published.translated.limit(RefinerySetting.find_or_set(:news_items_displayed, 4)) %>
 	
 	<div id="featured-nav">
 		<ul>
