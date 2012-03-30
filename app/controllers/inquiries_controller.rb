@@ -13,7 +13,7 @@ class InquiriesController < ApplicationController
   def create
     @inquiry = Inquiry.new(params[:inquiry])
 
-    if @inquiry.save
+    if verify_recaptcha(@inquiry) && @inquiry.save
       if @inquiry.ham?
         begin
           InquiryMailer.notification(@inquiry, request).deliver
