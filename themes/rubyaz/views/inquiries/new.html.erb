@@ -35,6 +35,10 @@
 									<p class="clearfix">
 										<%= f.text_area :message, {:value => 'Message', :class => 'input', :id => "et_contact_message"} %>
 									</p>
+									
+									<p class="clearfix">
+								    <%= recaptcha_tags :display => {:theme => 'white' , :tabindex => '5' } %>
+								    </p>
 
 									<input type="reset" id="et_contact_reset" value="Reset" />
 									<%= f.submit 'Submit', {:id => 'et_contact_submit'}  %>
