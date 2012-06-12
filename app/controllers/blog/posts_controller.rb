@@ -19,18 +19,14 @@ class Blog::PostsController < BlogController
       format.html { present(@page) }
       format.js { render :partial => 'post', :layout => false }
     end
-  end
-
+  end 
+  
   def comment
-    if (@blog_comment = @blog_post.comments.create(params[:blog_comment])).valid?
-      if BlogComment::Moderation.enabled? or @blog_comment.ham?
-        begin
-          Blog::CommentMailer.notification(@blog_comment, request).deliver
-        rescue
-          logger.warn "There was an error delivering a blog comment notification.\n#{$!}\n"
-        end
-      end
+    @blog_comment = BlogComment.new(params[:blog_comment])
+    @blog_comment.post = @blog_post
 
+    if verify_recaptcha(:model => @blog_comment, :message => 'Invalid reCAPTCHA!') && @blog_comment.valid?
+      @blog_comment.save
       if BlogComment::Moderation.enabled?
         flash[:notice] = t('blog.posts.comments.thank_you_moderated')
         redirect_to blog_post_url(params[:id])
@@ -42,7 +38,7 @@ class Blog::PostsController < BlogController
     else
       render :action => 'show'
     end
-  end
+  end  
 
   def archive
     if params[:month].present?

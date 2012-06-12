@@ -78,6 +78,9 @@
 											                        :id => "et_comment_message"} %>
 									</p> 
 									<p>
+										<%= recaptcha_tags :display => {:theme => 'white' , :tabindex => '5' } %>
+									</p>									
+									<p>
 										<a class="readmore" href="" onclick="jQuery('#commentform').submit();" tabindex ='5'>
 											<span><%= t('.submit') %></span>
 										</a>
