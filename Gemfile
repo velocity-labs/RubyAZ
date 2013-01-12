@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.19'
+gem 'rails', '3.0.7'
 gem 'sqlite3'
 gem 'aws-s3', :require => 'aws/s3'
 gem 'fog'
