@@ -25,7 +25,7 @@
 					
 					<div class="small_datapanel">
 						<h4 class="title"><a href="<%= blog_post_url(post) %>"><%= post.title %></a></h4>
-						<p class="meta-info">Posted by <%= post.author.username %> on <%= l(post.published_at.to_date, :format => "%Y-%m-%d") %></p>
+						<p class="meta-info">Posted by <%= post.try(:author).try(:username) %> on <%= l(post.published_at.to_date, :format => "%Y-%m-%d") %></p>
 						<p><%= truncate(post.body,
 				                   :length => RefinerySetting.find_or_set(:blog_post_teaser_length, 60),
 				                   :preserve_html_tags => true) %></p>
