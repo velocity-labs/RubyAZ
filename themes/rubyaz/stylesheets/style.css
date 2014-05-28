@@ -100,7 +100,7 @@ img#about-image { float: left; margin: 3px 8px 8px 0px; }
 					#search-form #searchinput { background: none; border: none; float: left; margin: 9px 7px 0 0px; width: 138px; padding-left: 15px; font-size: 12px; font-family: Arial, Verdana, sans-serif; color: #7d7d7d; text-shadow: 1px 1px 1px #19191b; font-style: italic; }
 					#search-form #searchsubmit { margin-top: 11px; margin-right: 9px; }
 		#main-area { background: url('/theme/images/bottom-bg.png') bottom left repeat-x; padding-bottom: 69px; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3); }
-			h2.custom-title, h3.custom-title { font-size: 60px !important; color: #404045 !important; margin-bottom: -32px; }
+			h2.custom-title, h3.custom-title { font-size: 60px !important; color: #404045 !important; margin-bottom: -5px; }
 			#calendar { min-height: 390px; }
 			#featured { min-height: 390px; }
 			.blog-half { float: left; padding-right: 12px; }
