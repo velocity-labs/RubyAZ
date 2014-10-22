@@ -8,6 +8,7 @@ gem 'recaptcha', '~> 0.3.4', :require => 'recaptcha/rails'
 gem 'rake', '0.9.2.2'
 gem 'unicorn'
 gem 'pg'
+gem 'rails_12factor', group: :production
 
 # REFINERY CMS ================================================================
 # Anything you put in here will be overridden when the app gets updated.
