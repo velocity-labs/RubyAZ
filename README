@@ -1,3 +1,5 @@
 == Ruby::AZ RefineryCMS Web Site
 
 This is a Rails 3 application using RefineryCMS with a customized theme
+
+- TODO: replace this with a modern non-db CMS, wink, wink!
