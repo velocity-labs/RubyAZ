@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 ruby "1.9.3"
 
 gem 'rails', '3.0.7'
-gem 'sqlite3'
 gem 'aws-s3', :require => 'aws/s3'
 gem 'fog'
 gem 'recaptcha', '~> 0.3.4', :require => 'recaptcha/rails'
