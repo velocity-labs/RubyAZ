@@ -13,7 +13,7 @@ gem 'rails_12factor', group: :production
 # REFINERY CMS ================================================================
 # Anything you put in here will be overridden when the app gets updated.
 
-gem 'refinerycms',              '= 0.9.9.16'
+gem 'refinerycms', github: 'integrallis/refinerycms'
 
 group :development, :test do
   # To use refinerycms-testing, uncomment it (if it's commented out) and run 'bundle install'
