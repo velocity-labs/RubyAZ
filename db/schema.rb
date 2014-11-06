@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110513205549) do
+ActiveRecord::Schema.define(:version => 20141023185838) do
 
   create_table "blog_categories", :force => true do |t|
     t.string   "title"
@@ -199,6 +199,18 @@ ActiveRecord::Schema.define(:version => 20110513205549) do
   add_index "portfolio_entries", ["lft"], :name => "index_portfolio_entries_on_lft"
   add_index "portfolio_entries", ["parent_id"], :name => "index_portfolio_entries_on_parent_id"
   add_index "portfolio_entries", ["rgt"], :name => "index_portfolio_entries_on_rgt"
+
+  create_table "portfolio_entry_translations", :force => true do |t|
+    t.integer  "portfolio_entry_id", :null => false
+    t.string   "locale",             :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+    t.text     "body"
+  end
+
+  add_index "portfolio_entry_translations", ["locale"], :name => "index_portfolio_entry_translations_on_locale"
+  add_index "portfolio_entry_translations", ["portfolio_entry_id"], :name => "index_portfolio_entry_translations_on_portfolio_entry_id"
 
   create_table "refinery_settings", :force => true do |t|
     t.string   "name"
